@@ -1,6 +1,23 @@
+import * as FileSystem from "expo-file-system";
+
 export const ADD_PLACE = "ADD_PLACE";
 
 export const addPlace = (title, image) => {
-    const id = new Date().toString();
-    return { type: ADD_PLACE, id, title, image };
+    return async (dispatch) => {
+        const fileName = image.split("/").pop();
+        const newPath = FileSystem.documentDirectory + fileName;
+
+        try {
+            await FileSystem.moveAsync({
+                from: image,
+                to: newPath,
+            });
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+
+        const id = new Date().toString();
+        dispatch({ type: ADD_PLACE, id, title, image: newPath });
+    };
 };
