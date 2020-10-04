@@ -10,13 +10,18 @@ import {
 import Color from "../contants/color";
 import { useDispatch } from "react-redux";
 import * as placeActions from "../store/place-action";
+import ImagePicker from "../components/ImagePicker";
 
 const NewPlaceScreen = (props) => {
     const [title, setTitle] = useState("");
+    const [image, setImage] = useState();
 
     const dispatch = useDispatch();
     const inputHandler = (text) => {
         setTitle(text);
+    };
+    const captureImageHandler = (imageUri) => {
+        setImage(imageUri);
     };
     return (
         <ScrollView>
@@ -27,11 +32,12 @@ const NewPlaceScreen = (props) => {
                     value={title}
                     onChangeText={(text) => inputHandler(text)}
                 ></TextInput>
+                <ImagePicker onImageCapture={captureImageHandler} />
                 <Button
                     title='Save'
                     color={Color.primary}
                     onPress={() => {
-                        dispatch(placeActions.addPlace(title));
+                        dispatch(placeActions.addPlace(title, image));
                         props.navigation.navigate("placeList");
                     }}
                 />

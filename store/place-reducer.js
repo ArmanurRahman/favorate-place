@@ -8,7 +8,7 @@ const initializeState = {
 const reducer = (state = initializeState, action) => {
     switch (action.type) {
         case ADD_PLACE:
-            const newPlace = new Place(action.id, action.title);
+            const newPlace = new Place(action.id, action.title, action.image);
             return { ...state, places: state.places.concat([newPlace]) };
         default:
             return state;
