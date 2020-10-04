@@ -17,6 +17,7 @@ const PlaceNavigator = createStackNavigator(
     {
         placeList: PlaceListScreen,
         newPlace: NewPlaceScreen,
+        placeDetails: PlaceDetailScreen,
     },
     {
         defaultNavigationOptions: defaultNavigationHeader,
