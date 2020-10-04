@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 
 const NewPlaceScreen = (props) => {
+    const [title, setTitle] = useState("");
+
+    const inputHandler = (text) => {
+        setTitle(text);
+    };
     return (
         <ScrollView>
             <View style={styles.screen}>
                 <Text style={styles.title}>Title</Text>
-                <TextInput style={styles.input}></TextInput>
+                <TextInput
+                    style={styles.input}
+                    value={title}
+                    onChangeText={(text) => inputHandler(text)}
+                ></TextInput>
             </View>
         </ScrollView>
     );
