@@ -13,7 +13,8 @@ const reducer = (state = initializeState, action) => {
 
         case SET_PLACE:
             const places = action.places.map(
-                (item) => new Place(item.id, item.title, item.imageUri)
+                (item) =>
+                    new Place(item.id.toString(), item.title, item.imageUri)
             );
             return {
                 ...state,
