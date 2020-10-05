@@ -34,7 +34,7 @@ const NewPlaceScreen = (props) => {
                     onChangeText={(text) => inputHandler(text)}
                 ></TextInput>
                 <ImagePicker onImageCapture={captureImageHandler} />
-                <LocationPicker />
+                <LocationPicker navigation={props.navigation} />
                 <Button
                     title='Save'
                     color={Color.primary}

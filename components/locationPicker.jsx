@@ -6,6 +6,7 @@ import {
     Button,
     Alert,
     ActivityIndicator,
+    TouchableOpacity,
 } from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
@@ -15,6 +16,7 @@ import MapPreview from "./MapPreview";
 const LoacationPicker = (props) => {
     const [pickedLocation, setPickedLocation] = useState();
     const [isLoading, setIsLoading] = useState(false);
+
     const verifyPermission = async () => {
         const permited = await Permissions.askAsync(Permissions.LOCATION);
         if (permited.status !== "granted") {
@@ -28,7 +30,7 @@ const LoacationPicker = (props) => {
         return true;
     };
 
-    const locationHandler = async () => {
+    const getLocationHandler = async () => {
         const hasPermission = await verifyPermission();
         if (!hasPermission) {
             return;
@@ -54,9 +56,16 @@ const LoacationPicker = (props) => {
         }
         setIsLoading(false);
     };
+
+    const selectLocationHandler = () => {
+        props.navigation.navigate("map");
+    };
     return (
         <View style={styles.LocationPicker}>
-            <View style={styles.LocationPreview}>
+            <TouchableOpacity
+                style={styles.LocationPreview}
+                onPress={selectLocationHandler}
+            >
                 <MapPreview
                     style={styles.LocationPreview}
                     location={pickedLocation}
@@ -67,15 +76,18 @@ const LoacationPicker = (props) => {
                         <Text>No map selected</Text>
                     )}
                 </MapPreview>
-
-                <View></View>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.button}>
                 <Button
+                    title='Get User Location'
+                    color={Color.secondary}
+                    onPress={getLocationHandler}
+                />
+                <Button
                     title='Select Location'
                     color={Color.secondary}
-                    onPress={locationHandler}
+                    onPress={selectLocationHandler}
                 />
             </View>
         </View>
@@ -95,7 +107,11 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
     },
-    button: { marginBottom: 10 },
+    button: {
+        marginBottom: 10,
+        flexDirection: "row",
+        justifyContent: "space-around",
+    },
 });
 
 export default LoacationPicker;
