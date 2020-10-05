@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -17,6 +17,13 @@ const LoacationPicker = (props) => {
     const [pickedLocation, setPickedLocation] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
+    const mapPickedLocation = props.navigation.getParam("selecdedPlace");
+
+    useEffect(() => {
+        if (mapPickedLocation) {
+            setPickedLocation(mapPickedLocation);
+        }
+    }, [mapPickedLocation]);
     const verifyPermission = async () => {
         const permited = await Permissions.askAsync(Permissions.LOCATION);
         if (permited.status !== "granted") {
