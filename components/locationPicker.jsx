@@ -22,6 +22,7 @@ const LoacationPicker = (props) => {
     useEffect(() => {
         if (mapPickedLocation) {
             setPickedLocation(mapPickedLocation);
+            props.onLocationSelected(mapPickedLocation);
         }
     }, [mapPickedLocation]);
     const verifyPermission = async () => {
@@ -49,6 +50,10 @@ const LoacationPicker = (props) => {
                 timeout: 5000,
             });
             setPickedLocation({
+                lat: location.coords.latitude,
+                lng: location.coords.longitude,
+            });
+            props.onLocationSelected({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude,
             });

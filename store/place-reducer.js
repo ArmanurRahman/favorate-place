@@ -8,7 +8,14 @@ const initializeState = {
 const reducer = (state = initializeState, action) => {
     switch (action.type) {
         case ADD_PLACE:
-            const newPlace = new Place(action.id, action.title, action.image);
+            const newPlace = new Place(
+                action.id,
+                action.title,
+                action.image,
+                action.address,
+                action.lat,
+                action.lng
+            );
             return { ...state, places: state.places.concat([newPlace]) };
 
         case SET_PLACE:
